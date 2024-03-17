@@ -4,7 +4,7 @@
 3.  if yes, send a notification with minimum order amounts for each product, and current stock, imminent order & delivery date
 
 ### Tasks
-- [ ] transform .pynb to .py project
+- [ ] transform .pynb to single file then to project of files
 - [ ] figure out secret_keys between github and replit
 - [ ] build daily trigger using Scheduler?
     - https://schedule.readthedocs.io/en/stable/
