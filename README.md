@@ -5,6 +5,7 @@
 
 ### Tasks
 - [ ] transform .pynb to .py project
+- [ ] figure out secret_keys between github and replit
 - [ ] build daily trigger using Scheduler?
     - https://schedule.readthedocs.io/en/stable/
 - [ ] manage data export/download/protect
