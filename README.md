@@ -3,3 +3,4 @@
 2.  determine order notification by checking if stock prior to delivery is equal or lower than buffer stock quantity
 3.  if yes, send a notification with minimum order amounts for each product, and current stock, imminent order & delivery date
 
+test text
