@@ -3,4 +3,11 @@
 2.  determine order notification by checking if stock prior to delivery is equal or lower than buffer stock quantity
 3.  if yes, send a notification with minimum order amounts for each product, and current stock, imminent order & delivery date
 
-test text
+### Tasks
+- [ ] transform .pynb to .py project
+- [ ] build daily trigger using Scheduler?
+    - https://schedule.readthedocs.io/en/stable/
+- [ ] manage data export/download/protect
+- [ ] troubleshoot
+- [ ] clean code & review
+- [ ] complete documentation
