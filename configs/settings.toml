@@ -1,0 +1,34 @@
+# settings.toml content
+
+[shopify]
+api_version = "2024-01"
+shop_name_env_var = "SHOP_NAME"
+api_key_env_var = "SHOPIFY_API_KEY"
+lead_time_days_default = 67
+
+[products]
+# Using environment variables, assuming the real product names, IDs, etc., will be dynamically loaded.
+
+# Product Shopify Names
+PRODUCT1_SHOPIFY_NAME = os.environ['PRODUCT1_SHOPIFY_NAME']
+PRODUCT2_SHOPIFY_NAME = os.environ['PRODUCT2_SHOPIFY_NAME']
+PRODUCT3_SHOPIFY_NAME = os.environ['PRODUCT3_SHOPIFY_NAME']
+PRODUCT4_SHOPIFY_NAME = os.environ['PRODUCT4_SHOPIFY_NAME']
+PRODUCT5_SHOPIFY_NAME = os.environ['PRODUCT5_SHOPIFY_NAME']
+PRODUCT6_SHOPIFY_NAME = os.environ['PRODUCT6_SHOPIFY_NAME']
+PRODUCT7_SHOPIFY_NAME = os.environ['PRODUCT7_SHOPIFY_NAME']
+PRODUCT8_SHOPIFY_NAME = os.environ['PRODUCT8_SHOPIFY_NAME']
+
+# Product Variable Names
+PRODUCT1_VAR_NAME = os.environ['PRODUCT1_VAR_NAME']
+PRODUCT2_VAR_NAME = os.environ['PRODUCT2_VAR_NAME']
+PRODUCT3_VAR_NAME = os.environ['PRODUCT3_VAR_NAME']
+PRODUCT4_VAR_NAME = os.environ['PRODUCT4_VAR_NAME']
+PRODUCT5_VAR_NAME = os.environ['PRODUCT5_VAR_NAME']
+PRODUCT6_VAR_NAME = os.environ['PRODUCT6_VAR_NAME']
+PRODUCT7_VAR_NAME = os.environ['PRODUCT7_VAR_NAME']
+PRODUCT8_VAR_NAME = os.environ['PRODUCT8_VAR_NAME']
+
+[forecasting]
+model = "Prophet"
+forecast_period_months = 4
