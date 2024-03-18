@@ -4,11 +4,23 @@
 3.  if yes, send a notification with minimum order amounts for each product, and current stock, imminent order & delivery date
 
 ### Tasks
+- [x] design high-level structure of project, files, functions etc.
 - [ ] transform .pynb to single file then to project of files
-- [ ] figure out secret_keys between github and replit
+- [x] figure out secret_keys between github and replit
 - [ ] build daily trigger using Scheduler?
     - https://schedule.readthedocs.io/en/stable/
 - [ ] manage data export/download/protect
 - [ ] troubleshoot
 - [ ] clean code & review
 - [ ] complete documentation
+
+
+# How to use
+
+### Setup
+
+Setup your local variables and secrets:
+- shopify API key [SHOPIFY-API-KEY]
+- shopify store name [SHOP_NAME]
+- product shopify names (exactly matching) [PRODUCT1_SHOPIFY_NAME, PRODUCT2_SHOPIFY_NAME, etc.]
+- product variable names (shortened for cleanliness) [PRODUCT1_VAR_NAME, PRODUCT2_VAR_NAME, etc.]
