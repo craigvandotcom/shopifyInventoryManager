@@ -5,8 +5,10 @@
 
 ### Tasks
 - [x] design high-level structure of project, files, functions etc.
-- [ ] transform .pynb to single file then to project of files
-- [x] figure out secret_keys between github and replit
+- [x] transform .pynb to single file then to project of files
+ - [x] figure out secret_keys between github and replit
+- [ ] DEBUG
+
 - [ ] build daily trigger using Scheduler?
     - https://schedule.readthedocs.io/en/stable/
 - [ ] manage data export/download/protect
