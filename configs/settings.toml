@@ -1,9 +1,9 @@
 # settings.toml content
 
 [shopify]
-api_version = "2024-01"
-shop_name_env_var = "SHOP_NAME"
-api_key_env_var = "SHOPIFY_API_KEY"
+shopify_api_version = "2024-01"
+shop_name = "SHOP_NAME"
+shopify_api_key = "SHOPIFY_API_KEY"
 lead_time_days_default = 67
 
 [products]
