@@ -4,6 +4,7 @@ from shopify_api.sales import fetch_sales_data_previous_months
 from shopify_api.product_details import fetch_details
 from forecasting.prophet_model import run_prophet_forecast
 from forecasting.utilities import summarize_forecast_results
+import toml
 import os
 import pandas as pd
 import shopify
@@ -14,10 +15,9 @@ def main():
         settings = toml.load(toml_file)
     
     # Setup Shopify API Session
-    shop_name = os.getenv('SHOP_NAME')
-    shopify_api_version = '2024-01'
-    shopify_api_key = os.getenv('SHOPIFY_API_KEY')
-  
+    shop_name = settings['shopify']['shop_name'] 
+    shopify_api_version = settings['shopify']['shopify_api_version']  
+    shopify_api_key = settings['shopify']['shopify_api_key'] 
     setup_shopify_session(shop_name, shopify_api_version, shopify_api_key)
 
     # Fetch product details
