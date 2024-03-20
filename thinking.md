@@ -1,0 +1,1 @@
+- [ ] generate bar groph with each safety stock marker, either daily, on notify, or dashboard
