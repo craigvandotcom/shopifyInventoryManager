@@ -7,12 +7,13 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-ShopifyAPI = "^12.4.0"  # Example version, adjust as necessary
 pandas = "^1.2.3"
 prophet = "^1.0"
 numpy = "^1.19.2"
 matplotlib = "^3.3.4"
 plotly = "^4.14.3"
+shopifyapi = "^12.4.0"
+django-mozilla-product-details = "^1.0.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"
