@@ -1,7 +1,25 @@
-# Step 1: Create a mapping of product names to your variable naming format
+import os
+import shopify
 
+def map_product_var():
+    """
+    Creates a mapping of Shopify product names to variable names using environment variables.
 
-# Step 2: Fetch products and match them to your mapping
+    Returns:
+    - dict: A dictionary mapping product names to variable names.
+    """
+    product_mapping = {
+        os.getenv('PRODUCT1_SHOPIFY_NAME'): os.getenv('PRODUCT1_VAR_NAME'),
+        os.getenv('PRODUCT2_SHOPIFY_NAME'): os.getenv('PRODUCT2_VAR_NAME'),
+        os.getenv('PRODUCT3_SHOPIFY_NAME'): os.getenv('PRODUCT3_VAR_NAME'),
+        os.getenv('PRODUCT4_SHOPIFY_NAME'): os.getenv('PRODUCT4_VAR_NAME'),
+        os.getenv('PRODUCT5_SHOPIFY_NAME'): os.getenv('PRODUCT5_VAR_NAME'),
+        os.getenv('PRODUCT6_SHOPIFY_NAME'): os.getenv('PRODUCT6_VAR_NAME'),
+        os.getenv('PRODUCT7_SHOPIFY_NAME'): os.getenv('PRODUCT7_VAR_NAME'),
+        os.getenv('PRODUCT8_SHOPIFY_NAME'): os.getenv('PRODUCT8_VAR_NAME')
+    }
+    return product_mapping
+
 def fetch_details(product_mapping):
     """
     Fetches product details from Shopify.
@@ -12,7 +30,7 @@ def fetch_details(product_mapping):
     """
 
     product_info = {}  # Dictionary to hold your variable names as keys and product/inventory IDs as values
-    
+
     products = shopify.Product.find()
     for product in products:
         for key, value in product_mapping.items():
@@ -24,4 +42,5 @@ def fetch_details(product_mapping):
                         "VariantID": variant.id,
                         "InventoryItemID": variant.inventory_item_id
                     }
-  
+                    break  # Exit the inner loop once a match is found
+    return product_info

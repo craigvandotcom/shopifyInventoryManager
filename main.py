@@ -1,4 +1,5 @@
 from shopify_api.my_shopify_client import setup_shopify_session
+from shopify_api.product_details import map_product_var, fetch_details
 from shopify_api.inventory import fetch_current_stock_levels, calculate_safety_stock_and_order_sizes
 from shopify_api.sales import fetch_sales_data_previous_months
 from shopify_api.product_details import fetch_details
@@ -21,6 +22,7 @@ def main():
     setup_shopify_session(shop_name, shopify_api_version, shopify_api_key)
 
     # Fetch product details
+    product_mapping = map_product_var()
     product_info = fetch_details(product_mapping)
 
     # Fetch current stock levels

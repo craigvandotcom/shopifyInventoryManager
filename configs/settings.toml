@@ -39,7 +39,7 @@ product_mapping = {
     PRODUCT6_SHOPIFY_NAME : PRODUCT6_VAR_NAME,
     PRODUCT7_SHOPIFY_NAME : PRODUCT7_VAR_NAME,
     PRODUCT8_SHOPIFY_NAME : PRODUCT8_VAR_NAME
-}
+    }
 
 [forecasting]
 model = "Prophet"
