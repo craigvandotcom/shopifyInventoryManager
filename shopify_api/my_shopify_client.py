@@ -12,7 +12,7 @@ def setup_shopify_session(shop_name, api_version, access_token):
     Returns:
     None
     """
-    session = shopify.Session(f"{shop_name}.myshopify.com", api_version, access_token)
+    session = shopify.Session(shop_url, api_version, shopify_access_token)
     shopify.ShopifyResource.activate_session(session)
 
 def deactivate_shopify_session():

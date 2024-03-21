@@ -47,7 +47,12 @@ def fetch_sales_data_previous_months(months_back=12):
 
         # Check if there's a next page of orders
         if orders.has_next_page():
-            params["page_info"] = orders.response.headers.get('Link', '').split('page_info=')[-1].split('>')[0]
+            # Correctly access the 'next_page_url' property
+            next_page_info = orders.next_page_url.split("page_info=")[-1] if orders.next_page_url else None
+            if next_page_info:
+                params = {"page_info": next_page_info}
+            else:
+                break
         else:
             break
 

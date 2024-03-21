@@ -1,5 +1,8 @@
 import shopify
 import numpy as np
+import pandas as pd
+import toml
+import os
 
 def fetch_current_stock_levels(product_info):
     """
@@ -28,17 +31,18 @@ def fetch_current_stock_levels(product_info):
 def calculate_safety_stock_and_order_sizes(sales_data_df, product_info, forecast_results, lead_time_days=67):
     """
     Calculates safety stock levels and order sizes based on sales data and forecasted demand.
-
     Parameters:
     - sales_data_df (pandas.DataFrame): DataFrame with historical sales data.
     - product_info (dict): Dictionary containing product information.
     - forecast_results (dict): Forecasted sales data.
-    - lead_time_days (int): Lead time in days for receiving stock.
-
+    - settings (dict): A dictionary containing settings including 'shopify' configuration.
+    - lead_time_days (int): Lead time in days for receiving stock, defaults to 67 if not specified.
     Returns:
     - tuple: Two dictionaries, one for safety stock levels and another for order size recommendations.
     """
     service_level_z = 1.65
+    # Use 'settings' dict to get 'lead_time_days' if it exists, else use the function's default or provided 'lead_time_days'
+    lead_time_days = settings['shopify'].get('lead_time_days', lead_time_days)
     lead_time_months = lead_time_days / 30  # Simple approximation
 
     monthly_sales_by_product = sales_data_df.groupby(['product_id', pd.Grouper(key='date', freq='M')])['quantity'].sum().reset_index()
