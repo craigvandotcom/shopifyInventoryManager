@@ -28,7 +28,7 @@ def fetch_current_stock_levels(product_info):
 
     return current_stock_levels
 
-def calculate_safety_stock_and_order_sizes(sales_data_df, product_info, forecast_results, lead_time_days=67):
+def calculate_safety_stock_and_order_sizes(sales_data_df, product_info, forecast_results, settings, lead_time_days=67):
     """
     Calculates safety stock levels and order sizes based on sales data and forecasted demand.
     Parameters:

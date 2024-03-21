@@ -47,7 +47,6 @@ def fetch_sales_data_previous_months(months_back=12):
 
         # Check if there's a next page of orders
         if orders.has_next_page():
-            # Correctly access the 'next_page_url' property
             next_page_info = orders.next_page_url.split("page_info=")[-1] if orders.next_page_url else None
             if next_page_info:
                 params = {"page_info": next_page_info}
@@ -69,6 +68,21 @@ def aggregate_sales_data(sales_data):
     - pd.DataFrame: DataFrame aggregated by month and product_id.
     """
     sales_data['date'] = pd.to_datetime(sales_data['date']).dt.date
-    sales_data['month_year'] = pd.to_datetime(sales_data['date']).dt.to_period('M')
+    sales_data['month_year'] = sales_data['date'].apply(lambda x: x.strftime('%Y-%m'))
 
     return sales_data.groupby(['product_id', 'month_year'])['quantity'].sum().reset_index()
+
+def prepare_for_prophet(aggregated_sales_data):
+    """
+    Prepares the aggregated sales data for the Prophet model by renaming columns to 'ds' and 'y'.
+
+    Parameters:
+    - aggregated_sales_data (pd.DataFrame): DataFrame containing aggregated sales data.
+
+    Returns:
+    - pd.DataFrame: DataFrame with 'ds' for dates and 'y' for values, suitable for Prophet.
+    """
+    prophet_ready_df = aggregated_sales_data.rename(columns={'month_year': 'ds', 'quantity': 'y'})
+    prophet_ready_df['ds'] = pd.to_datetime(prophet_ready_df['ds']).dt.to_period('M').dt.to_timestamp()
+
+    return prophet_ready_df
