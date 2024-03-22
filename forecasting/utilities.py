@@ -29,7 +29,11 @@ def plot_forecast(forecast, historical_data=None):
     plt.xlabel('Date')
     plt.ylabel('Sales')
     plt.title('Sales Forecast')
-    plt.show()
+
+    # Save the plot as an image
+    print("Saving the forecast plot as 'sales_forecast_plot.png'...")
+    plt.savefig('forecast_plot.png')
+    plt.savefig('sales_forecast_plot.png', bbox_inches='tight')
 
 def summarize_forecast_results(forecast_results, safety_stock, order_sizes):
     """

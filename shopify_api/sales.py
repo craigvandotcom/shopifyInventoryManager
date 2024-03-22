@@ -54,8 +54,9 @@ def fetch_sales_data_previous_months(months_back=12):
                 break
         else:
             break
-
-    return pd.DataFrame(sales_data)
+    sales_data = pd.DataFrame(sales_data)
+    print(sales_data.head())
+    return sales_data
 
 def aggregate_sales_data(sales_data):
     """
@@ -67,6 +68,8 @@ def aggregate_sales_data(sales_data):
     Returns:
     - pd.DataFrame: DataFrame aggregated by month and product_id.
     """
+    print(sales_data.columns)  # Temporary check
+    
     sales_data['date'] = pd.to_datetime(sales_data['date']).dt.date
     sales_data['month_year'] = sales_data['date'].apply(lambda x: x.strftime('%Y-%m'))
 
