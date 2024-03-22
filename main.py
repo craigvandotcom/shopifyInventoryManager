@@ -6,6 +6,18 @@ from forecasting.utilities import summarize_forecast_results, plot_forecast
 import toml
 import os
 
+# UPDATE IMMINENT STOCK
+imminent_stock = {
+    os.getenv('PRODUCT1_VAR_NAME'): 50,
+    os.getenv('PRODUCT2_VAR_NAME'): 30,
+    os.getenv('PRODUCT3_VAR_NAME'): 20,
+    os.getenv('PRODUCT4_VAR_NAME'): 10,
+    os.getenv('PRODUCT5_VAR_NAME'): 0,
+    os.getenv('PRODUCT6_VAR_NAME'): 0,
+    os.getenv('PRODUCT7_VAR_NAME'): 0,
+    os.getenv('PRODUCT8_VAR_NAME'): 0
+}
+
 def main():
     # Load settings from TOML file
     with open('configs/settings.toml', 'r') as toml_file:
@@ -28,7 +40,7 @@ def main():
 
     # Aggregate sales data
     print("Aggregating sales data...")
-    aggregated_sales_data = aggregate_sales_data(sales_data_df)
+    aggregated_sales_data = aggregate_sales_data(sales_data_df) # 'date' to 'month_year'
 
     # Prep
     print("Preparing the DataFrame for Prophet model...")
@@ -38,7 +50,7 @@ def main():
     print("Running Prophet model...")
     forecast_results = run_prophet_forecast(prophet_ready_df)
 
-    print("Visualizing the forecast data...")  
+    print("Visualizing the forecast data...")
     plot_forecast(forecast=forecast_results, historical_data=prepare_for_prophet(aggregated_sales_data))
 
     print("Calculating safety stock levels and order sizes...")
@@ -46,9 +58,6 @@ def main():
 
     print("Summarizing and displaying the forecast results...")
     summary_df = summarize_forecast_results(forecast_results, safety_stock, order_sizes)
-
-    print("Saving the summary dataframe to a CSV file...")
-    summary_df.to_csv('forecast_summary_results.csv', index=False)
 
     print("Forecast plot saved as 'sales_forecast_plot.png'.")
     print("Forecast summary results saved in 'forecast_summary_results.csv'.")

@@ -5,6 +5,7 @@ shopify_api_version = "2024-01"
 shop_name = "SHOP_NAME"
 shopify_api_key = "SHOPIFY_API_KEY"
 lead_time_days = 67
+              
 shop_url = "https://www.shop.com"
 
 [forecasting]

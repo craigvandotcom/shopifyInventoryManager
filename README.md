@@ -12,6 +12,8 @@
 - [ ] build daily trigger using Scheduler?
     - https://schedule.readthedocs.io/en/stable/
 - [ ] manage data export/download/protect
+    - [ ] slack / email / 
+
 - [ ] troubleshoot
 - [ ] clean code & review
 - [ ] complete documentation

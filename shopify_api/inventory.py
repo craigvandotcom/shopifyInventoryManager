@@ -1,8 +1,6 @@
 import shopify
 import numpy as np
 import pandas as pd
-import toml
-import os
 
 def fetch_current_stock_levels(product_info):
     """
@@ -34,18 +32,21 @@ def calculate_safety_stock_and_order_sizes(sales_data_df, product_info, forecast
     Parameters:
     - sales_data_df (pandas.DataFrame): DataFrame with historical sales data.
     - product_info (dict): Dictionary containing product information.
-    - forecast_results (dict): Forecasted sales data.
+    - forecast_results_df (pd.DataFrame): Forecasted sales data in DataFrame.
     - settings (dict): A dictionary containing settings including 'shopify' configuration.
     - lead_time_days (int): Lead time in days for receiving stock, defaults to 67 if not specified.
     Returns:
     - tuple: Two dictionaries, one for safety stock levels and another for order size recommendations.
     """
     service_level_z = 1.65
-    # Use 'settings' dict to get 'lead_time_days' if it exists, else use the function's default or provided 'lead_time_days'
     lead_time_days = settings['shopify'].get('lead_time_days', lead_time_days)
     lead_time_months = lead_time_days / 30  # Simple approximation
 
-    monthly_sales_by_product = sales_data_df.groupby(['product_id', pd.Grouper(key='date', freq='M')])['quantity'].sum().reset_index()
+    # Transform DF 'month_year' to datetime format if present in the DataFrame
+    if 'month_year' in sales_data_df.columns:
+        sales_data_df['month_year'] = pd.to_datetime(sales_data_df['month_year'])
+
+    monthly_sales_by_product = sales_data_df.groupby(['product_id', pd.Grouper(key='month_year', freq='M')])['quantity'].sum().reset_index()
     std_dev_by_product = monthly_sales_by_product.groupby('product_id')['quantity'].std().reset_index()
 
     # Map from product ID to names
@@ -57,10 +58,14 @@ def calculate_safety_stock_and_order_sizes(sales_data_df, product_info, forecast
         for _, row in std_dev_by_product.iterrows() if pd.notnull(row['product_name'])
     }
 
-    average_monthly_forecasted_demand = {
-        product: np.mean(list(sales.values())) 
-        for product, sales in forecast_results.items()
-    }
+    average_monthly_forecasted_demand = {}
+    for product, details in product_info.items():
+        product_id = details['ProductID']
+        forecasted_product_data = forecast_results[forecast_results['product_id'] == product_id]
+        average_forecast = np.mean(forecasted_product_data['yhat']) if not forecasted_product_data.empty else 0
+        product_name = id_to_name_mapping.get(product_id, None)
+        if product_name:
+            average_monthly_forecasted_demand[product_name] = average_forecast
 
     forecasted_demand_lead_time = {
         product: demand * lead_time_months 

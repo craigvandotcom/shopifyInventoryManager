@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 
 def plot_forecast(forecast, historical_data=None):
     """
@@ -64,11 +65,10 @@ def summarize_forecast_results(forecast_results, safety_stock, order_sizes):
 
     # Assuming necessary data received correctly; otherwise, ensure data existence and error handling
     for product_name in product_order:
-        # Assuming we have a means of calculating immediate stock, for simplicity set to 0
-        imminent_stock = 0
+  
         # Example forecasted demand calculation; replace with real logic
-        demand_lead_time = sum(forecast_results[product_name].values())/len(forecast_results[product_name])  
-        # Aggregate existing and imminent stock for simplified example
+        demand_lead_time = forecast_results['yhat'].sum() / len(forecast_results['yhat'])
+        # Aggregate existing and imminent stock for a simplified example
         adjusted_current_stock = imminent_stock  
 
         data['Product Name'].append(product_name)
@@ -81,7 +81,7 @@ def summarize_forecast_results(forecast_results, safety_stock, order_sizes):
         data['Stock Pre-Delivery'].append(stock_pre_delivery)
 
         stock_post_delivery = stock_pre_delivery + data['Order Sizes'][-1]  # Last added order size
-        data['Stock Post-Delivery'].append(stock_pre_delivery)
+        data['Stock Post-Delivery'].append(stock_post_delivery)
 
         ideal_stock_at_next_delivery = safety_stock.get(product_name, 0) + demand_lead_time
         data['Ideal Stock at Next Delivery'].append(ideal_stock_at_next_delivery)
