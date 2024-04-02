@@ -42,22 +42,26 @@ def main():
     print("Aggregating sales data...")
     aggregated_sales_data = aggregate_sales_data(sales_data_df) # 'date' to 'month_year'
 
-    # Prep
+    # Prep data for Prophet input
     print("Preparing the DataFrame for Prophet model...")
     prophet_ready_df = prepare_for_prophet(aggregated_sales_data)
 
-    # The forecasting and plotting logic now runs regardless of the DataFrame's source
+    # Forecasting with Prophet
     print("Running Prophet model...")
     forecast_results = run_prophet_forecast(prophet_ready_df)
 
+    # Plot the forecast_results
     print("Visualizing the forecast data...")
-    plot_forecast(forecast=forecast_results, historical_data=prepare_for_prophet(aggregated_sales_data))
+    plot_forecast(forecast_results=forecast_results, historical_data=prepare_for_prophet(aggregated_sales_data), product_mapping=product_mapping)
 
     print("Calculating safety stock levels and order sizes...")
     safety_stock, order_sizes = calculate_safety_stock_and_order_sizes(aggregated_sales_data, product_info, forecast_results, settings)
 
-    print("Summarizing and displaying the forecast results...")
-    summary_df = summarize_forecast_results(forecast_results, safety_stock, order_sizes)
+    # TEST print statement
+    print("forecast_results_keys:", list(forecast_results.keys()))
+
+    # print("Summarizing and displaying the forecast results...")
+    # summary_df = summarize_forecast_results(forecast_results, safety_stock, order_sizes)
 
     print("Forecast plot saved as 'sales_forecast_plot.png'.")
     print("Forecast summary results saved in 'forecast_summary_results.csv'.")

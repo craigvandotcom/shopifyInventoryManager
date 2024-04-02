@@ -55,7 +55,7 @@ def fetch_sales_data_previous_months(months_back=12):
         else:
             break
     sales_data = pd.DataFrame(sales_data)
-    print(sales_data.head())
+
     return sales_data
 
 def aggregate_sales_data(sales_data):
@@ -85,7 +85,11 @@ def prepare_for_prophet(aggregated_sales_data):
     Returns:
     - pd.DataFrame: DataFrame with 'ds' for dates and 'y' for values, suitable for Prophet.
     """
+    # Rename columns
     prophet_ready_df = aggregated_sales_data.rename(columns={'month_year': 'ds', 'quantity': 'y'})
+  
+    # Convert 'ds' to datetime format suitable for Prophet
     prophet_ready_df['ds'] = pd.to_datetime(prophet_ready_df['ds']).dt.to_period('M').dt.to_timestamp()
-
+  
+    # Keep product_id for individual product forecasts
     return prophet_ready_df
